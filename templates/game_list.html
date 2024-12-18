@@ -1,0 +1,35 @@
+<!-- templates/game_list.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="game-list-container">
+  <h1>Game List</h1>
+  <form method="GET" action="{{ url_for('game_list') }}">
+    <input type="text" name="q" placeholder="Search Game">
+    <button type="submit" class="btn">Show Details</button>
+    <a href="{{ url_for('new_game') }}" class="btn">New Game Prediction</a>
+  </form>
+
+  <table class="game-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Price</th>
+        <th>Score</th>
+        <th>Copies Sold</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for game in games %}
+      <tr>
+        <td><a href="{{ url_for('game_detail', game_name=game.name) }}">{{ game.name }}</a></td>
+        <td>{{ game.genre }}</td>
+        <td>{{ game.price }}$</td>
+        <td>{{ game.score }}%</td>
+        <td>{{ game.copies_sold }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

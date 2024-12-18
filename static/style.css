@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #4A4E59;
+  color: #CCD6F6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.new-game-container {
+  margin-top: 40px;
+}
+
+.new-game-container h1 {
+  text-align: left;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #C2C7DA;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #AEB6C8;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: #5A6070;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.form-group input::placeholder {
+  color: #C2C7DA;
+  opacity: 0.7;
+}
+
+.form-submit {
+  grid-column: 1 / -1; /* Rozciągnij na całą szerokość */
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn {
+  background-color: #334E86;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #2b3d66;
+}
+
+/* Opcjonalne dostosowanie stylu nav i innych elementów */
+.top-nav {
+  background-color: #2b3d66;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.top-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.top-nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.top-nav ul li a:hover {
+  text-decoration: underline;
+}

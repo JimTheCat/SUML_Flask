@@ -1,0 +1,17 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="homepage">
+  <h1 class="main-title">Game copies sold prediction <span class="tm">™</span></h1>
+  <div class="search-container">
+    <form method="GET" action="{{ url_for('game_list') }}">
+      <input type="text" name="q" class="search-input" placeholder="Search Game">
+      <div class="button-group">
+        <button type="submit" class="btn">Search</button>
+        <a href="{{ url_for('game_list') }}" class="btn">Show All</a>
+        <a href="{{ url_for('new_game') }}" class="btn">New Game Prediction</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

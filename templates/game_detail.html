@@ -1,0 +1,19 @@
+<!-- templates/game_detail.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="game-detail-container">
+  <h1>{{ game.name }}</h1>
+  <div class="game-detail-flex">
+    <div class="game-image-box">
+      <img src="{{ url_for('static', filename='images/game_image_placeholder.png') }}" alt="Game Image" class="game-image">
+    </div>
+    <div class="game-info">
+      <p><strong>Genre:</strong> {{ game.genre }}</p>
+      <p><strong>Price:</strong> {{ game.price }}$</p>
+      <p><strong>Score:</strong> {{ game.score }}%</p>
+      <p><strong>Copies Sold:</strong> {{ game.copies_sold }}</p>
+      <!-- Dodaj inne detale jeśli potrzebujesz -->
+    </div>
+  </div>
+</div>
+{% endblock %}
