@@ -77,32 +77,104 @@ def new_game():
         # Pobierz dane z formularza
         name = request.form.get('name')
         genre = request.form.get('genre')
+        language = request.form.get('languages')
+        developer = request.form.get('developers')
+        publisher = request.form.get('publishers')
+        category = request.form.get('categories')
+        tag = request.form.get('tags')
+
+        peak_ccu_str = request.form.get('peak_ccu', '0')
+        try:
+            peak_ccu = int(peak_ccu_str)
+        except:
+            peak_ccu = 0
+
+        dlc_count_str = request.form.get('dlc_count', '0')
+        try:
+            dlc_count = int(dlc_count_str)
+        except:
+            dlc_count = 0
+
         price_str = request.form.get('price', '0')
         try:
             price = float(price_str)
         except:
             price = 0.0
 
+        positive_str = request.form.get('positive', '0')
+        try:
+            positive = int(positive_str)
+        except:
+            positive = 0
+
+        negative_str = request.form.get('negative', '0')
+        try:
+            negative = int(negative_str)
+        except:
+            negative = 0
+
+        average_playtime_str = request.form.get('average_playtime', '0')
+        try:
+            average_playtime = int(average_playtime_str)
+        except:
+            average_playtime = 0
+
+        required_age_str = request.form.get('required_age', '0')
+        try:
+            required_age = int(required_age_str)
+        except:
+            required_age = 0
+
+        metacritic_score_str = request.form.get('metacritic_score', '0')
+        try:
+            metacritic_score = int(metacritic_score_str)
+        except:
+            metacritic_score = 0
+
+        user_score_str = request.form.get('user_score', '0')
+        try:
+            user_score = int(user_score_str)
+        except:
+            user_score = 0
+
+        achievements_str = request.form.get('achievements', '0')
+        try:
+            achievements = int(achievements_str)
+        except:
+            achievements = 0
+
+        recommendations_str = request.form.get('recommendations', '0')
+        try:
+            recommendations = int(recommendations_str)
+        except:
+            recommendations = 0
+
+        average_playtime_2weeks_str = request.form.get('average_playtime_2weeks', '0')
+        try:
+            average_playtime_2weeks = int(average_playtime_2weeks_str)
+        except:
+            average_playtime_2weeks = 0
+
         # Budujemy input_data do modelu. W tym przykładzie wypełnimy resztę wartości domyślnie.
         input_data = {
-            'peak_ccu': 100,       # przykładowa wartość domyślna
+            'peak_ccu': peak_ccu,       # przykładowa wartość domyślna
             'price': price,
-            'dlc_count': 0,
-            'positive': 1000,
-            'negative': 100,
-            'average_playtime': 50,
-            'required_age': 0,
-            'metacritic_score': 80,
-            'user_score': 75,
-            'achievements': 10,
-            'recommendations': 500,
-            'average_playtime_2weeks': 10,
-            'languages': "English",
-            'developers': "IndieDev",
-            'publishers': "IndiePub",
+            'dlc_count': dlc_count,
+            'positive': positive,
+            'negative': negative,
+            'average_playtime': average_playtime,
+            'required_age': required_age,
+            'metacritic_score': metacritic_score,
+            'user_score': user_score,
+            'achievements': achievements,
+            'recommendations': recommendations,
+            'average_playtime_2weeks': average_playtime_2weeks,
+            'languages': language,
+            'developers': developer,
+            'publishers': publisher,
             'genres': genre,
-            'categories': "Single-player",
-            'tags': "indie,action"
+            'categories': category,
+            'tags': tag
         }
 
         if model is None:
