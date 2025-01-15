@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template
 import joblib
 import pandas as pd
 import os
@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Ładowanie wytrenowanego modelu
-MODEL_PATH = 'model/random_forest_model.pkl'
+MODEL_PATH = 'data/random_forest_model.pkl'
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
     print("Model załadowany pomyślnie.")
