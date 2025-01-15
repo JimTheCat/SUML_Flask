@@ -1,97 +1,77 @@
 # src/model_training.py
 
-import joblib
+import os
+import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.metrics import mean_squared_error, r2_score
+from autogluon.tabular import TabularPredictor
 
-from data_preprocessing import get_preprocessed_data
+# Funkcja do ładowania i przetwarzania danych
+def load_data(file_path: str) -> pd.DataFrame:
+    from data_preprocessing import load_and_flatten_json, one_hot_encode_list_columns, extract_unique_values
 
-def train_model():
-    # Ładowanie i przygotowanie danych
-    df = get_preprocessed_data('../data/games.json')
+    # Wczytanie i przetworzenie danych
+    df = load_and_flatten_json(file_path)
 
-    print("Dane po przetworzeniu:")
-    print(df.head())
+    # Konwersja release_date na datetime i wyodrębnienie roku i miesiąca
+    df['release_date'] = pd.to_datetime(df['release_date'], format='%b %d, %Y', errors='coerce')
+    df['release_year'] = df['release_date'].dt.year
+    df['release_month'] = df['release_date'].dt.month
 
-    # Przygotowanie cech i etykiety
-    X = df.drop('estimated_owners', axis=1)
-    y = df['estimated_owners']
+    # Filtracja nieistotnych kolumn
+    columns_to_drop = ['detailed_description', 'about_the_game', 'short_description', 'reviews', 'header_image',
+                       'website', 'support_url', 'support_email', 'metacritic_url', 'achievements', 'recommendations',
+                       'notes', 'packages', 'developers', 'publishers', 'screenshots', 'movies', 'user_score',
+                       'score_rank', 'average_playtime_forever', 'average_playtime_2weeks', 'median_playtime_forever',
+                       'median_playtime_2weeks', 'peak_ccu', 'tags', 'release_date', 'name', 'required_age']  # Dodaj inne kolumny, które nie są istotne
+    df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
-    # Podział na zestaw treningowy i testowy
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+    # Zamiana zakresu "estimated_owners" na średnią wartość
+    df['estimated_owners'] = df['estimated_owners'].str.split(' - ').apply(
+        lambda x: (int(x[0].replace(',', '')) + int(x[1].replace(',', ''))) // 2 if isinstance(x, list) else 0
     )
 
-    # Definicja cech kategorycznych i numerycznych
-    categorical_features = ['languages', 'developers', 'publishers', 'genres', 'categories', 'tags']
-    numerical_features = [
-        'peak_ccu', 'price', 'dlc_count', 'positive', 'negative',
-        'average_playtime', 'required_age', 'metacritic_score',
-        'user_score', 'achievements', 'recommendations', 'average_playtime_2weeks'
-    ]
+    # Wykonanie one-hot encoding dla kolumn listowych
+    list_columns = ['supported_languages', 'full_audio_languages', 'categories', 'genres']
+    extract_unique_values(df, list_columns)
+    df = one_hot_encode_list_columns(df, list_columns)
 
-    # Pipeline dla cech numerycznych
-    numerical_pipeline = Pipeline(steps=[
-        ('imputer', SimpleImputer(strategy='median'))
-    ])
-
-    # Sprawdzamy unikalne kategorie w kolumnach kategorycznych w zbiorze treningowym i testowym
-    print("Unikalne kategorie w zbiorze treningowym:")
-    for col in categorical_features:
-        print(f"{col}: {X_train[col].unique()}")
-
-    print("Unikalne kategorie w zbiorze testowym:")
-    for col in categorical_features:
-        print(f"{col}: {X_test[col].unique()}")
+    return df
 
 
-    # Pipeline dla cech kategorycznych
-    categorical_pipeline = Pipeline(steps=[
-        ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-        ('onehot', OneHotEncoder(handle_unknown='ignore'))
-    ])
+# Ścieżka do pliku JSON
+file_path = os.path.join(os.getcwd(), 'data/games.json')
 
-    # Łączymy wszystkie w ColumnTransformer
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ('num', numerical_pipeline, numerical_features),
-            ('cat', categorical_pipeline, categorical_features)
-        ]
-    )
+# Wczytanie danych
+print("Wczytywanie danych...")
+df = load_data(file_path)
+print("Dane wczytane i przetworzone.")
 
-    # Pipeline modelu
-    model_pipeline = Pipeline(steps=[
-        ('preprocessor', preprocessor),
-        ('regressor', RandomForestRegressor(n_estimators=15, random_state=42))
-    ])
+print(df.head())
 
-    # Trenowanie modelu
-    print("Trenowanie modelu...")
-    model_pipeline.fit(X_train, y_train)
-    print("Model wytrenowany pomyślnie.")
+# Przygotowanie cech (X) i etykiety (y)
+X = df.drop('estimated_owners', axis=1)
+y = df['estimated_owners']
 
-    # Prognozowanie na zestawie testowym
-    print("Prognozowanie na zestawie testowym...")
-    y_pred = model_pipeline.predict(X_test)
-    print("Prognozowanie zakończone.")
+# Podział danych na zestaw treningowy i testowy
+X['estimated_owners'] = y  # AutoGluon wymaga, aby cel znajdował się w DataFrame
+train_data, test_data = train_test_split(X, test_size=0.2, random_state=42)
 
-    # Ocena modelu
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = mse ** 0.5
-    r2 = r2_score(y_test, y_pred)
+# Trenowanie modelu za pomocą AutoGluon
+print("Rozpoczęcie trenowania modelu za pomocą AutoGluon...")
+predictor = TabularPredictor(label='estimated_owners', eval_metric='r2', problem_type='regression').fit(
+    train_data=train_data,
+    time_limit=600  # Ustaw limit czasu na trenowanie (w sekundach)
+)
+print("Model wytrenowany pomyślnie.")
 
-    print(f"Mean Squared Error (MSE): {mse}")
-    print(f"Root Mean Squared Error (RMSE): {rmse}")
-    print(f"R^2 Score: {r2}")
+print("Usuwanie zbędnych modeli...")
 
-    # Zapisanie modelu
-    joblib.dump(model_pipeline, '../model/random_forest_model.pkl')
-    print("Model zapisany jako 'model/random_forest_model.pkl'")
+# Najlepszy model (zwykle ten z najwyższym `score_val` dla wybranej metryki)
+leaderboard = predictor.leaderboard(silent=True)
+best_model = leaderboard.iloc[0]['model']
+print(f"Najlepszy model: {best_model}")
 
-if __name__ == '__main__':
-    train_model()
+# Usuń wszystkie modele poza najlepszym
+predictor.delete_models(models_to_keep=[best_model], dry_run=False)
+
+print("Modele usunięte.")
