@@ -2,11 +2,11 @@ from flask import Flask, request, jsonify, render_template
 import joblib
 import pandas as pd
 import os
-
+import test
 app = Flask(__name__)
 
 # Ładowanie wytrenowanego modelu
-MODEL_PATH = 'data/random_forest_model.pkl'
+MODEL_PATH = test.best_model_path
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
     print("Model załadowany pomyślnie.")
@@ -22,24 +22,26 @@ def prepare_data(input_data):
     Docelowo powinieneś przekazywać wszystkie dane potrzebne do modelu.
     """
     data = {
-        'peak_ccu': input_data.get('peak_ccu', 0),
-        'price': input_data.get('price', 0.0),
-        'dlc_count': input_data.get('dlc_count', 0),
-        'positive': input_data.get('positive', 0),
-        'negative': input_data.get('negative', 0),
-        'average_playtime': input_data.get('average_playtime', 0),
-        'required_age': input_data.get('required_age', 0),
-        'metacritic_score': input_data.get('metacritic_score', 0),
-        'user_score': input_data.get('user_score', 0),
-        'achievements': input_data.get('achievements', 0),
-        'recommendations': input_data.get('recommendations', 0),
-        'average_playtime_2weeks': input_data.get('average_playtime_2weeks', 0),
-        'languages': input_data.get('languages', ""),
-        'developers': input_data.get('developers', ""),
-        'publishers': input_data.get('publishers', ""),
-        'genres': input_data.get('genres', ""),
-        'categories': input_data.get('categories', ""),
-        'tags': input_data.get('tags', "")
+        'release_year' : input_data.get('release_year'),
+        'release_month' : input_data.get('release_month'),
+        # 'peak_ccu': input_data.get('peak_ccu', 0),
+        # 'price': input_data.get('price', 0.0),
+        # 'dlc_count': input_data.get('dlc_count', 0),
+        # 'positive': input_data.get('positive', 0),
+        # 'negative': input_data.get('negative', 0),
+        # 'average_playtime': input_data.get('average_playtime', 0),
+        # 'required_age': input_data.get('required_age', 0),
+        # 'metacritic_score': input_data.get('metacritic_score', 0),
+        # 'user_score': input_data.get('user_score', 0),
+        # 'achievements': input_data.get('achievements', 0),
+        # 'recommendations': input_data.get('recommendations', 0),
+        # 'average_playtime_2weeks': input_data.get('average_playtime_2weeks', 0),
+        # 'languages': input_data.get('languages', ""),
+        # 'developers': input_data.get('developers', ""),
+        # 'publishers': input_data.get('publishers', ""),
+        # 'genres': input_data.get('genres', ""),
+        # 'categories': input_data.get('categories', ""),
+        # 'tags': input_data.get('tags', "")
     }
 
     df = pd.DataFrame([data])
@@ -71,10 +73,22 @@ def game_detail(game_name):
         return "Game not found", 404
     return render_template('game_detail.html', game=game, title=game['name'])
 
+
+def string_to_int(value_type):
+    value_str = request.form.get(value_type)
+    try:
+        value = int(value_str)
+    except:
+        value = 0
+    return value
+
 @app.route('/new', methods=['GET', 'POST'])
 def new_game():
     if request.method == 'POST':
         # Pobierz dane z formularza
+        release_year = string_to_int(request.form.get('release_year'))
+        release_month = string_to_int(request.form.get('release_month'))
+
         name = request.form.get('name')
         genre = request.form.get('genre')
         language = request.form.get('languages')
@@ -157,31 +171,33 @@ def new_game():
 
         # Budujemy input_data do modelu. W tym przykładzie wypełnimy resztę wartości domyślnie.
         input_data = {
-            'peak_ccu': peak_ccu,       # przykładowa wartość domyślna
-            'price': price,
-            'dlc_count': dlc_count,
-            'positive': positive,
-            'negative': negative,
-            'average_playtime': average_playtime,
-            'required_age': required_age,
-            'metacritic_score': metacritic_score,
-            'user_score': user_score,
-            'achievements': achievements,
-            'recommendations': recommendations,
-            'average_playtime_2weeks': average_playtime_2weeks,
-            'languages': language,
-            'developers': developer,
-            'publishers': publisher,
-            'genres': genre,
-            'categories': category,
-            'tags': tag
+            'release_year' : release_year,
+            'release_month' : release_month,
+            # 'peak_ccu': peak_ccu,
+            # 'price': price,
+            # 'dlc_count': dlc_count,
+            # 'positive': positive,
+            # 'negative': negative,
+            # 'average_playtime': average_playtime,
+            # 'required_age': required_age,
+            # 'metacritic_score': metacritic_score,
+            # 'user_score': user_score,
+            # 'achievements': achievements,
+            # 'recommendations': recommendations,
+            # 'average_playtime_2weeks': average_playtime_2weeks,
+            # 'languages': language,
+            # 'developers': developer,
+            # 'publishers': publisher,
+            # 'genres': genre,
+            # 'categories': category,
+            # 'tags': tag
         }
 
         if model is None:
             return jsonify({'error': 'Model is not loaded!'}), 500
 
         data = prepare_data(input_data)
-        prediction = model.predict(data)[0]
+        prediction = model.predict(data)
 
         return render_template('prediction_result.html', name=name, predicted=prediction, title="Prediction Result")
 

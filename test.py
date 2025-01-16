@@ -1,4 +1,3 @@
-import json
 from autogluon.tabular import TabularPredictor
 import os
 

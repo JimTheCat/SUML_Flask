@@ -3,95 +3,101 @@
 <div class="new-game-container">
   <h1>New Game Prediction</h1>
   <form method="POST" action="{{ url_for('new_game') }}" class="form-grid">
-    <div class="form-group">
-      <label for="peak_ccu">Peak CCU</label>
-      <input type="number" id="peak_ccu" name="peak_ccu" placeholder="0">
-    </div>
 
-    <div class="form-group">
-      <label for="price">Price</label>
-      <input type="number" id="price" name="price" placeholder="0.0" step="0.01">
-    </div>
+      <div class="form-group">
+        <label for="release_year">Release Year</label>
+        <input type="number" id="release_year" name="release_year" placeholder="2025">
+      </div>
 
-    <div class="form-group">
-      <label for="dlc_count">DLC Count</label>
-      <input type="number" id="dlc_count" name="dlc_count" placeholder="0">
-    </div>
+      <div class="form-group">
+        <label for="release_month">Release Month</label>
+        <input type="number" id="release_month" name="release_month" placeholder="1">
+      </div>
 
-    <div class="form-group">
-      <label for="positive">Positive Reviews</label>
-      <input type="number" id="positive" name="positive" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="negative">Negative Reviews</label>
-      <input type="number" id="negative" name="negative" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="average_playtime">Average Playtime</label>
-      <input type="number" id="average_playtime" name="average_playtime" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="required_age">Required Age</label>
-      <input type="number" id="required_age" name="required_age" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="metacritic_score">Metacritic Score</label>
-      <input type="number" id="metacritic_score" name="metacritic_score" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="user_score">User Score</label>
-      <input type="number" id="user_score" name="user_score" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="achievements">Achievements</label>
-      <input type="number" id="achievements" name="achievements" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="recommendations">Recommendations</label>
-      <input type="number" id="recommendations" name="recommendations" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="average_playtime_2weeks">Average Playtime (2 weeks)</label>
-      <input type="number" id="average_playtime_2weeks" name="average_playtime_2weeks" placeholder="0">
-    </div>
-
-    <div class="form-group">
-      <label for="languages">Languages</label>
-      <input type="text" id="languages" name="languages" placeholder="English, Polish, ...">
-    </div>
-
-    <div class="form-group">
-      <label for="developers">Developers</label>
-      <input type="text" id="developers" name="developers" placeholder="e.g. IndieDevStudio">
-    </div>
-
-    <div class="form-group">
-      <label for="publishers">Publishers</label>
-      <input type="text" id="publishers" name="publishers" placeholder="e.g. IndiePub">
-    </div>
-
-    <div class="form-group">
-      <label for="genres">Genres</label>
-      <input type="text" id="genres" name="genres" placeholder="e.g. Action, RPG">
-    </div>
-
-    <div class="form-group">
-      <label for="categories">Categories</label>
-      <input type="text" id="categories" name="categories" placeholder="e.g. Single-player, Co-op">
-    </div>
-
-    <div class="form-group">
-      <label for="tags">Tags</label>
-      <input type="text" id="tags" name="tags" placeholder="e.g. indie,action">
-    </div>
+{#    <div class="form-group">#}
+{#      <label for="price">Price</label>#}
+{#      <input type="number" id="price" name="price" placeholder="0.0" step="0.01">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="dlc_count">DLC Count</label>#}
+{#      <input type="number" id="dlc_count" name="dlc_count" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="positive">Positive Reviews</label>#}
+{#      <input type="number" id="positive" name="positive" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="negative">Negative Reviews</label>#}
+{#      <input type="number" id="negative" name="negative" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="average_playtime">Average Playtime</label>#}
+{#      <input type="number" id="average_playtime" name="average_playtime" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="required_age">Required Age</label>#}
+{#      <input type="number" id="required_age" name="required_age" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="metacritic_score">Metacritic Score</label>#}
+{#      <input type="number" id="metacritic_score" name="metacritic_score" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="user_score">User Score</label>#}
+{#      <input type="number" id="user_score" name="user_score" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="achievements">Achievements</label>#}
+{#      <input type="number" id="achievements" name="achievements" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="recommendations">Recommendations</label>#}
+{#      <input type="number" id="recommendations" name="recommendations" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="average_playtime_2weeks">Average Playtime (2 weeks)</label>#}
+{#      <input type="number" id="average_playtime_2weeks" name="average_playtime_2weeks" placeholder="0">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="languages">Languages</label>#}
+{#      <input type="text" id="languages" name="languages" placeholder="English, Polish, ...">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="developers">Developers</label>#}
+{#      <input type="text" id="developers" name="developers" placeholder="e.g. IndieDevStudio">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="publishers">Publishers</label>#}
+{#      <input type="text" id="publishers" name="publishers" placeholder="e.g. IndiePub">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="genres">Genres</label>#}
+{#      <input type="text" id="genres" name="genres" placeholder="e.g. Action, RPG">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="categories">Categories</label>#}
+{#      <input type="text" id="categories" name="categories" placeholder="e.g. Single-player, Co-op">#}
+{#    </div>#}
+{##}
+{#    <div class="form-group">#}
+{#      <label for="tags">Tags</label>#}
+{#      <input type="text" id="tags" name="tags" placeholder="e.g. indie,action">#}
+{#    </div>#}
 
     <div class="form-submit">
       <button type="submit" class="btn">Predict Copies Sold</button>
