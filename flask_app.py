@@ -8,9 +8,9 @@ app = Flask(__name__)
 genres = utils.open_from_file(os.path.join('unique_values', 'genres.txt'))
 categories = utils.open_from_file(os.path.join('unique_values', 'categories.txt'))
 original_languages = utils.open_from_file(os.path.join('unique_values', 'supported_languages.txt'))
-languages = utils.open_from_file(os.path.join('unique_values', 'cleared_languages.txt'))
+languages = utils.open_from_file(os.path.join('unique_values', 'languages.txt'))
 original_audio = utils.open_from_file(os.path.join('unique_values', 'full_audio_languages.txt'))
-audio = utils.open_from_file(os.path.join('unique_values', 'cleared_audio.txt'))
+audio = utils.open_from_file(os.path.join('unique_values', 'audio.txt'))
 
 # Funkcja do przygotowania danych wejściowych dla modelu
 def prepare_data(input_data):
