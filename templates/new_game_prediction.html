@@ -62,24 +62,6 @@
         {% endfor %}
       </div>
 
-    <label for="languages">Languages</label>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        {% for language in languages %}
-            <label style="display: flex; align-items: center;">
-                <input type="checkbox" name="languages" value="{{ language }}" style="margin-right: 5px;"> {{ language }}
-            </label>
-        {% endfor %}
-      </div>
-
-  <label for="audio">Audio</label>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        {% for single_audio in audio %}
-            <label style="display: flex; align-items: center;">
-                <input type="checkbox" name="audio" value="{{ single_audio }}" style="margin-right: 5px;"> {{ single_audio }}
-            </label>
-        {% endfor %}
-      </div>
-
     <div class="form-submit">
       <button type="submit" class="btn">Predict Copies Sold</button>
     </div>
