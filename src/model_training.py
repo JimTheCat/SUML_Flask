@@ -22,7 +22,7 @@ def load_data(file_path: str) -> pd.DataFrame:
                        'website', 'support_url', 'support_email', 'metacritic_url', 'achievements', 'recommendations',
                        'notes', 'packages', 'developers', 'publishers', 'screenshots', 'movies', 'user_score',
                        'score_rank', 'average_playtime_forever', 'average_playtime_2weeks', 'median_playtime_forever',
-                       'median_playtime_2weeks', 'peak_ccu', 'tags', 'release_date', 'name', 'required_age']  # Dodaj inne kolumny, które nie są istotne
+                       'median_playtime_2weeks', 'peak_ccu', 'tags', 'release_date', 'name', 'required_age']
     df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
     # Zamiana zakresu "estimated_owners" na średnią wartość
