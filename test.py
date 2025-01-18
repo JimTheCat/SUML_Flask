@@ -14,6 +14,13 @@ def find_latest_model(directory='AutogluonModels'):
 def find_best_model_by_name(directory='AutogluonModels', model_name=None):
     return directory if model_name is None else os.path.join(directory, model_name)
 
+def get_best_model():
+    path = find_latest_model(os.path.join(os.getcwd(), 'AutogluonModels'))
+    model = TabularPredictor.load(path)
+    ranking = model.leaderboard(silent=True)
+    best = ranking.iloc[0]['model']
+    return best
+
 # Ścieżka do folderu z wynikami
 save_path = find_latest_model(os.path.join(os.getcwd(), 'AutogluonModels'))
 

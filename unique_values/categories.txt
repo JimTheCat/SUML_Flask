@@ -1,0 +1,43 @@
+Single-player
+Multi-player
+Steam Achievements
+Partial Controller Support
+Full controller support
+Steam Leaderboards
+Remote Play on Phone
+Remote Play on Tablet
+Remote Play on TV
+MMO
+PvP
+Online PvP
+Co-op
+Online Co-op
+In-App Purchases
+Steam Cloud
+Steam Trading Cards
+Shared/Split Screen
+Cross-Platform Multiplayer
+Remote Play Together
+Stats
+Shared/Split Screen PvP
+Captions available
+Steam Workshop
+Includes level editor
+LAN PvP
+LAN Co-op
+Shared/Split Screen Co-op
+Steam Turn Notifications
+VR Support
+SteamVR Collectibles
+Valve Anti-Cheat enabled
+Includes Source SDK
+Commentary available
+Mods (require HL2)
+Mods
+Tracked Motion Controller Support
+Tracked Controller Support
+VR Only
+VR Supported
+HDR available
+Family Sharing
+Steam Timeline
