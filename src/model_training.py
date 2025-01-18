@@ -5,6 +5,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from autogluon.tabular import TabularPredictor
 
+from src.diagrams import generate_visualizations
+
+
 # Funkcja do ładowania i przetwarzania danych
 def load_data(file_path: str) -> pd.DataFrame:
     from data_preprocessing import load_and_flatten_json, one_hot_encode_list_columns
@@ -54,7 +57,7 @@ def transform_estimated_owners(df):
     return df
 
 # Ścieżka do pliku JSON
-file_path = os.path.join(os.getcwd(), '../data/games.json')
+file_path = os.path.join(os.getcwd(), 'data/games.json')
 
 # Wczytanie danych
 print("Wczytywanie danych...")
@@ -94,3 +97,7 @@ print(f"Najlepszy model: {best_model}")
 predictor.delete_models(models_to_keep=[best_model], dry_run=False)
 
 print("Modele usunięte.")
+
+print("Generowanie diagramów...")
+generate_visualizations(predictor, test_data)
+print("Diagramy wygenerowane.")
