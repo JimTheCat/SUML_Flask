@@ -15,6 +15,10 @@ body {
 
 .new-game-container {
   margin-top: 40px;
+  background-color: #3C4049;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .new-game-container h1 {
@@ -26,8 +30,8 @@ body {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .form-group {
@@ -36,15 +40,14 @@ body {
 }
 
 .form-group label {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
   font-size: 0.9rem;
   color: #AEB6C8;
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"] {
-  padding: 10px;
+.form-group input {
+  padding: 12px;
   border-radius: 5px;
   border: none;
   background: #5A6070;
@@ -57,8 +60,25 @@ body {
   opacity: 0.7;
 }
 
+.form-checkbox label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-multicheck label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  color: #CCD6F6;
+}
+
+.form-multicheck input[type="checkbox"] {
+  accent-color: #334E86;
+}
+
 .form-submit {
-  grid-column: 1 / -1; /* Rozciągnij na całą szerokość */
+  grid-column: 1 / -1;
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -71,23 +91,56 @@ body {
   padding: 12px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   font-weight: bold;
   font-size: 1rem;
 }
 
 .btn:hover {
   background-color: #2b3d66;
+  transform: translateY(-2px);
 }
 
-/* Opcjonalne dostosowanie stylu nav i innych elementów */
+.form-title {
+  text-align: center;
+}
+
+.page-title {
+  vertical-align: center;
+  font-size: 3rem;
+  margin-bottom: 30px;
+  color: #C2C7DA;
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* Stylizacja dla headera */
 .top-nav {
-  background-color: #2b3d66;
-  padding: 10px;
-  margin-bottom: 20px;
+  background-color: #334E86; /* Kolor tła headera */
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtelny cień */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.top-nav ul {
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav-links {
   list-style: none;
   display: flex;
   gap: 20px;
@@ -95,12 +148,145 @@ body {
   padding: 0;
 }
 
-.top-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
+.nav-links li {
+  display: inline;
 }
 
-.top-nav ul li a:hover {
-  text-decoration: underline;
+.nav-links a {
+  color: #CCD6F6; /* Jasny kolor dla tekstu */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #AEB6C8; /* Kolor po najechaniu */
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+/* Stylizacja dla Homepage */
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Wyśrodkowanie zawartości w poziomie */
+  margin-top: 40px;
+}
+
+.main-title {
+  font-size: 3.5rem; /* Większy tytuł na stronie głównej */
+  color: #C2C7DA;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #5A6070;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.tm {
+  font-size: 1.2rem;
+  vertical-align: top;
+  color: #5A6070; /* Subtelny kolor dla TM */
+}
+
+.search-container {
+  margin-top: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* Wyśrodkowanie przycisków */
+}
+
+.button-group .btn {
+  background-color: #334E86;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-group .btn:hover {
+  background-color: #2b3d66;
+  transform: scale(1.05); /* Subtelne powiększenie przy najechaniu */
+}
+
+/* Style dla informacji o modelu */
+
+/* Kontener dla całej sekcji */
+.model-info-container {
+  text-align: center;
+}
+
+/* Tytuł sekcji */
+.page-title {
+  font-size: 3rem; /* Większy tytuł */
+  color: #C2C7DA;
+  font-weight: bold;
+  margin-bottom: 20px; /* Zmniejszenie odstępu pomiędzy tytułem a tekstem */
+  border-bottom: 2px solid #5A6070;
+  padding-bottom: 10px;
+}
+
+/* Sekcja z opisem modelu */
+.model-description {
+  font-size: 1.2rem;
+  color: #AEB6C8;
+  line-height: 1.6;
+  margin-bottom: 30px; /* Mniejsza przerwa między tekstem a obrazkami */
+}
+
+.model-description a {
+  color: #4871c3; /* Kolor linku */
+  font-weight: bold;
+  text-decoration: none; /* Usuwamy podkreślenie */
+}
+
+.model-description a:hover {
+  color: #425d9c; /* Zmiana koloru linku po najechaniu */
+}
+
+/* Sekcja z obrazkami */
+.image-section {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Większa przerwa między obrazkami */
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Elementy obrazków */
+.image-item {
+  text-align: center;
+  max-width: 800px; /* Powiększamy maksymalną szerokość obrazków */
+  margin: 0 auto;
+}
+
+.image-item img {
+  width: 100%; /* Ustawiamy obraz na pełną szerokość dostępnej przestrzeni */
+  max-width: 800px; /* Zwiększamy maksymalny rozmiar obrazka */
+  height: auto; /* Automatyczne dopasowanie wysokości */
+  border-radius: 8px; /* Zaokrąglone rogi obrazków */
+  margin-bottom: 30px; /* Większa przerwa poniżej obrazka */
+}
+
+/* Etykieta pod obrazkami */
+.image-item label {
+  font-size: 1.2rem;
+  color: #AEB6C8;
+  font-weight: bold;
+  margin-top: 15px; /* Dodanie większej przerwy między obrazkiem a etykietą */
 }
