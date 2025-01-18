@@ -22,7 +22,8 @@ def load_data(file_path: str) -> pd.DataFrame:
                        'website', 'support_url', 'support_email', 'metacritic_url', 'achievements', 'recommendations',
                        'notes', 'packages', 'developers', 'publishers', 'screenshots', 'movies', 'user_score',
                        'score_rank', 'average_playtime_forever', 'average_playtime_2weeks', 'median_playtime_forever',
-                       'median_playtime_2weeks', 'peak_ccu', 'tags', 'release_date', 'name', 'required_age']
+                       'median_playtime_2weeks', 'peak_ccu', 'tags', 'release_date', 'name', 'required_age',
+                       'supported_languages', 'full_audio_languages']
     df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
     # Zamiana zakresu "estimated_owners" na średnią wartość
@@ -31,8 +32,7 @@ def load_data(file_path: str) -> pd.DataFrame:
     )
 
     # Wykonanie one-hot encoding dla kolumn listowych
-    list_columns = ['supported_languages', 'full_audio_languages', 'categories', 'genres']
-    extract_unique_values(df, list_columns)
+    list_columns = ['categories', 'genres']
     df = one_hot_encode_list_columns(df, list_columns)
 
     return df
@@ -60,7 +60,7 @@ train_data, test_data = train_test_split(X, test_size=0.2, random_state=42)
 print("Rozpoczęcie trenowania modelu za pomocą AutoGluon...")
 predictor = TabularPredictor(label='estimated_owners', eval_metric='r2', problem_type='regression').fit(
     train_data=train_data,
-    time_limit=600  # Ustaw limit czasu na trenowanie (w sekundach)
+    time_limit=700  # Ustaw limit czasu na trenowanie (w sekundach)
 )
 print("Model wytrenowany pomyślnie.")
 
@@ -68,7 +68,13 @@ print("Usuwanie zbędnych modeli...")
 
 # Najlepszy model (zwykle ten z najwyższym `score_val` dla wybranej metryki)
 leaderboard = predictor.leaderboard(silent=True)
-best_model = leaderboard.iloc[0]['model']
+
+# Jeśli najlepszy model to WeightedEnsemble_L2 lub ExtraTreesMSE, wybierz drugi najlepszy
+if leaderboard.iloc[0]['model'] == 'WeightedEnsemble_L2' or leaderboard.iloc[0]['model'] == 'ExtraTreesMSE':
+    best_model = leaderboard.iloc[1]['model']
+else:
+    best_model = leaderboard.iloc[0]['model']
+
 print(f"Najlepszy model: {best_model}")
 
 # Usuń wszystkie modele poza najlepszym

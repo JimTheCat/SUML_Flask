@@ -23,6 +23,7 @@ def get_best_model():
 
 # Ścieżka do folderu z wynikami
 save_path = find_latest_model(os.path.join(os.getcwd(), 'AutogluonModels'))
+print(f"Ścieżka do folderu z wynikami: {save_path}")
 
 # Wczytaj model
 predictor = TabularPredictor.load(save_path)
@@ -31,12 +32,14 @@ predictor = TabularPredictor.load(save_path)
 leaderboard = predictor.leaderboard(silent=True)
 print(leaderboard)
 
+print()
+
 # Najlepszy model (zwykle ten z najwyższym `score_val` dla wybranej metryki)
 best_model = leaderboard.iloc[0]['model']
 print(f"Najlepszy model: {best_model}")
 
 # Usuń wszystkie modele poza najlepszym
-predictor.delete_models(models_to_keep=[best_model], dry_run=False)
+# predictor.delete_models(models_to_keep=[best_model], dry_run=False)
 
 # Dry-run: Ustawienie na True pokaże, które modele zostałyby usunięte bez faktycznego usuwania
 
