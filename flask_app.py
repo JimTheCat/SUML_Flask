@@ -6,6 +6,7 @@ import os
 app = Flask(__name__)
 
 genres = utils.open_from_file(os.path.join('unique_values', 'genres.txt'))
+genres_2 = utils.open_from_file(os.path.join('unique_values', 'genres_2.txt'))
 categories = utils.open_from_file(os.path.join('unique_values', 'categories.txt'))
 
 # Funkcja do przygotowania danych wejściowych dla modelu
@@ -37,31 +38,14 @@ def prepare_data(input_data):
     df = pd.DataFrame([data])
     return df
 
-# Przykładowa "baza" gier (statyczna lista do demonstracji)
-GAMES = [
-    {"name": "Game1", "genre": "RPG", "price": 35, "score": 79, "copies_sold": 2123412},
-    {"name": "Game2", "genre": "Action", "price": 50, "score": 82, "copies_sold": 1500000},
-]
-
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html', title="Home")
 
-@app.route('/games')
-def game_list():
-    q = request.args.get('q')
-    if q:
-        filtered = [g for g in GAMES if q.lower() in g['name'].lower()]
-    else:
-        filtered = GAMES
-    return render_template('game_list.html', games=filtered, title="Show All Games")
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', title="About Model")
 
-@app.route('/games/<game_name>')
-def game_detail(game_name):
-    game = next((g for g in GAMES if g['name'].lower() == game_name.lower()), None)
-    if not game:
-        return "Game not found", 404
-    return render_template('game_detail.html', game=game, title=game['name'])
 
 def checkbox_to_bool(value_type):
     value_str = request.form.get(value_type)
@@ -108,11 +92,11 @@ def new_game():
         }
 
         data = prepare_data(input_data)
-        prediction = round(test.predictor.predict(data).tolist()[0])
+        prediction = test.predictor.predict(data).tolist()[0]
 
         return render_template('prediction_result.html', predicted=prediction, title="Prediction Result")
 
-    return render_template('new_game_prediction.html', title="New Game Prediction", genres=genres,
+    return render_template('new_game_prediction.html', title="Game Sales Prediction", genres=genres_2,
                            categories=categories)
 
 if __name__ == '__main__':

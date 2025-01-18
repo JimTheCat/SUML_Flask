@@ -1,0 +1,34 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+<div class="model-info-container">
+    <h1 class="page-title">About the Model</h1>
+    <div class="model-description">
+        <p>
+            The data used to train the model was obtained from the
+            <a href="https://www.kaggle.com/datasets/fronkongames/steam-games-dataset/data" target="_blank">
+                Steam Games Dataset on Kaggle
+            </a>.
+            It consists of data about games available on the Steam platform. A NeuralNetFastAI model was trained, achieving a result of 0.8504.
+            This model classifies the sales range of a game based on the provided data.
+        </p>
+    </div>
+
+    <div class="image-section">
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='img/confusion_matrix.png') }}" alt="Confusion Matrix">
+            <label>Confusion Matrix</label>
+        </div>
+
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='img/error_distribution.png') }}" alt="Error Distribution">
+            <label>Error Distribution</label>
+        </div>
+
+        <div class="image-item">
+            <img src="{{ url_for('static', filename='img/feature_importance.png') }}" alt="Feature Importance">
+            <label>Feature Importance</label>
+        </div>
+    </div>
+</div>
+{% endblock %}
