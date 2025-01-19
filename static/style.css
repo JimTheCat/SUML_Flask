@@ -290,3 +290,54 @@ body {
   font-weight: bold;
   margin-top: 15px; /* Dodanie większej przerwy między obrazkiem a etykietą */
 }
+
+/* Rezultaty predykcji */
+
+.prediction-result-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: #C2C7DA;
+  font-weight: bold;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #5A6070;
+  padding-bottom: 10px;
+}
+
+.prediction-message {
+  font-size: 1.5rem;
+  color: #AEB6C8;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.prediction-message strong {
+  color: #3f61a6; /* Podkreślenie wyniku predykcji */
+  font-size: 2rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  background-color: #334E86;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none; /* Bez podkreślenia */
+}
+
+.btn:hover {
+  background-color: #2b3d66;
+}
