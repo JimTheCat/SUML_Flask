@@ -2,8 +2,14 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="prediction-result-container">
-  <h1>Prediction Result</h1>
-  <p>The predicted copies sold is: <strong>{{ predicted }}</strong></p>
-  <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+  <h1 class="page-title">Prediction Result</h1>
+  <p class="prediction-message">
+    The predicted copies sold is: <strong>{{ predicted }}</strong>
+  </p>
+  <div class="button-group">
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    <a href="{{ url_for('about') }}" class="btn">About Model</a>
+    <a href="{{ url_for('new_game') }}" class="btn">Next Prediction</a>
+  </div>
 </div>
 {% endblock %}
