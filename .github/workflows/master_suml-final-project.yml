@@ -56,8 +56,8 @@ jobs:
         with:
           name: python-app
 
-      # - name: Unzip artifact for deployment
-      #   run: unzip release.zip
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
       
       - name: 'Deploy to Azure Web App'
@@ -67,4 +67,3 @@ jobs:
           app-name: 'SUML-Final-Project'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD819263112B4F2ABE2F9C0754ADF07A }}
-          package: ./release.zip
