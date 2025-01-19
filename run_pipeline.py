@@ -6,7 +6,7 @@ def install_requirements():
     """
     Instaluje zależności z pliku requirements.txt.
     """
-    requirements_path = os.path.join(os.getcwd(), "requirements.txt")
+    requirements_path = os.path.join(os.getcwd(), "requirements-dev.txt")
     if os.path.exists(requirements_path):
         try:
             subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
