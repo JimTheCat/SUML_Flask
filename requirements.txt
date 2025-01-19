@@ -6,3 +6,4 @@ scikit-learn~=1.5.2
 numpy~=1.26.4
 autogluon.tabular~=1.2
 setuptools~=75.8.0
+fastai~=2.7.18
