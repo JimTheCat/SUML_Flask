@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - SUML-Final-Project
+name: Build and deploy Python app to Azure Web App - SUML-FinalProject
 
 on:
   push:
@@ -56,15 +56,14 @@ jobs:
         with:
           name: python-app
 
-      # - name: Unzip artifact for deployment
-      #   run: unzip release.zip
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'SUML-Final-Project'
+          app-name: 'SUML-FinalProject'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD819263112B4F2ABE2F9C0754ADF07A }}
-          package: ./release.zip
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_89376478BA7D465CA310D3FDC275E279 }}
